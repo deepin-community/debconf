@@ -1,5 +1,6 @@
-debconf (1.5.79-deepin) stable; urgency=medium
+debconf (1.5.68) unstable; urgency=low
 
-  * ['Rebuild  against by  current gcc 11.2']
+  From now on, Kde frontend requires debconf-kde-helper package.
+  libqtcore4-perl and libqtgui4-perl packages can be safely removed.
 
- -- Deepin Packages Builder <packages@deepin.org>  Thu, 11 Aug 2022 21:44:46 +0800
+ -- Modestas Vainius <modax@debian.org>  Wed, 18 Jul 2018 21:12:23 +0100
