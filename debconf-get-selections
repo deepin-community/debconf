@@ -38,13 +38,13 @@ if (@ARGV && $ARGV[0] eq '--installer') {
 		$di_path="/var/log/debian-installer/cdebconf";
 	}
 	$Debconf::Db::config=Debconf::Db->makedriver(
-		driver => "File", 
+		driver => "File",
 		name => "di_questions",
 		filename => "$di_path/questions.dat",
 		readonly => "true",
 	);
 	$Debconf::Db::templates=Debconf::Db->makedriver(
-		driver => "File", 
+		driver => "File",
 		name => "di_templates",
 		filename => "$di_path/templates.dat",
 		readonly => "true",
@@ -53,8 +53,12 @@ if (@ARGV && $ARGV[0] eq '--installer') {
 }
 
 my $qi = Debconf::Question->iterator;
+my @qs;
 
 while (my $q = $qi->iterate) {
+	push @qs, $q;
+}
+for my $q (sort { $a->name cmp $b->name } @qs) {
 	my ($name, $type, $value) = ($q->name, $q->type, $q->value);
 	next if (! length $type || $type eq 'text' || $type eq 'title');
 	print "# ".$q->description."\n";
@@ -66,7 +70,7 @@ while (my $q = $qi->iterate) {
 			print "$owner\t$name\t$type\t$value\n";
 		}
 	}
-	else {		
+	else {
 		print "$defaultowner\t$name\t$type\t$value\n";
 	}
 }
